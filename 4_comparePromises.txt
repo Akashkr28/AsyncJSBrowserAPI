@@ -1,0 +1,183 @@
+Q4.Compare Promises to callbacks and discuss why Promises are preferred for managing asynchronous code.
+
+Ans:
+### Comparison: Promises vs Callbacks
+
+#### 1. Definition:
+- Callbacks: Functions passed as arguments to other functions to execute once an asynchronous operation is complete.
+- Promises: Objects that represent the eventual completion (or failure) of an asynchronous operation and allow chaining of asynchronous actions.
+
+---
+
+#### 2. Code Syntax:
+- Callback Example:
+   
+   function fetchData(callback) {
+       setTimeout(() => {
+           callback(null, "Data received");
+       }, 1000);
+   }
+
+   fetchData((err, data) => {
+       if (err) {
+           console.error("Error:", err);
+       } else {
+           console.log(data);
+       }
+   });
+   
+
+- Promise Example:
+   
+   function fetchData() {
+       return new Promise((resolve, reject) => {
+           setTimeout(() => {
+               resolve("Data received");
+           }, 1000);
+       });
+   }
+
+   fetchData()
+       .then(data => console.log(data))
+       .catch(err => console.error("Error:", err));
+   
+
+---
+
+#### 3. Readability:
+- Callbacks:
+   - Lead to "callback hell" or deeply nested structures, making the code hard to read and debug.
+   - Example of Callback Hell:
+     
+     doTask1((err, result1) => {
+         if (err) return console.error(err);
+         doTask2(result1, (err, result2) => {
+             if (err) return console.error(err);
+             doTask3(result2, (err, result3) => {
+                 if (err) return console.error(err);
+                 console.log("All tasks completed:", result3);
+             });
+         });
+     });
+     
+
+- Promises:
+   - Provide cleaner syntax through chaining.
+   - Example:
+     t
+     doTask1()
+         .then(result1 => doTask2(result1))
+         .then(result2 => doTask3(result2))
+         .then(result3 => console.log("All tasks completed:", result3))
+         .catch(err => console.error(err));
+     
+---
+
+#### 4. Error Handling:
+- Callbacks:
+   - Error handling is cumbersome. Errors need to be explicitly passed through each callback.
+   - Example:
+     
+     doTask((err, result) => {
+         if (err) {
+             console.error("Error:", err);
+         } else {
+             console.log("Result:", result);
+         }
+     });
+     
+
+- Promises:
+   - Centralized error handling with .catch(). Errors automatically propagate down the chain.
+   - Example:
+     
+     doTask()
+         .then(result => console.log("Result:", result))
+         .catch(err => console.error("Error:", err));
+     
+---
+
+#### 5. Chaining:
+- Callbacks:
+   - Chaining multiple asynchronous operations requires nesting, making the code less maintainable.
+   - Example:
+     
+     task1((err, result1) => {
+         if (err) return console.error(err);
+         task2(result1, (err, result2) => {
+             if (err) return console.error(err);
+             task3(result2, (err, result3) => {
+                 if (err) return console.error(err);
+                 console.log(result3);
+             });
+         });
+     });
+     
+
+- Promises:
+   - Promises allow flat and sequential chaining of operations.
+   - Example:
+    
+     task1()
+         .then(result1 => task2(result1))
+         .then(result2 => task3(result2))
+         .then(result3 => console.log(result3))
+         .catch(err => console.error(err));
+     
+---
+
+#### 6. Advanced Features:
+- Callbacks:
+   - Limited flexibility and composability.
+   - Cannot combine multiple asynchronous operations easily.
+
+- Promises:
+   - Support advanced operations like Promise.all, Promise.race, etc.
+   - Example:
+     
+     Promise.all([task1(), task2(), task3()])
+         .then(results => console.log("All tasks completed:", results))
+         .catch(err => console.error("Error:", err));
+     
+---
+
+### Why Promises Are Preferred Over Callbacks:
+1. Avoid Callback Hell:
+   - Promises allow flat chaining instead of deeply nested structures.
+
+2. Centralized Error Handling:
+   - Errors propagate automatically, making handling easier with .catch().
+
+3. Improved Readability:
+   - Promises make asynchronous code look cleaner and more like synchronous code.
+
+4. Composability:
+   - Promises allow combining multiple asynchronous operations using Promise.all, Promise.race, and similar methods.
+
+5. Better Debugging:
+   - Debugging is easier as stack traces in promises are more meaningful compared to callbacks.
+
+---
+
+#### Example Comparison of Callback Hell vs Promises:
+- Callback Hell:
+   
+   authenticateUser(user, (err, userData) => {
+       if (err) return console.error(err);
+       fetchProfile(userData, (err, profile) => {
+           if (err) return console.error(err);
+           getPosts(profile, (err, posts) => {
+               if (err) return console.error(err);
+               console.log(posts);
+           });
+       });
+   });
+   
+
+- Promises:
+   
+   authenticateUser(user)
+       .then(userData => fetchProfile(userData))
+       .then(profile => getPosts(profile))
+       .then(posts => console.log(posts))
+       .catch(err => console.error(err));

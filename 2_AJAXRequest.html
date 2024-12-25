@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Request Example</title>
+    <style>
+        #generateButton {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        #generateButton:hover {
+            background-color: #45a049;
+        }
+
+        #userList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #userList li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <button id="generateButton">Get user names</button>
+    <ul id="userList"></ul>
+
+    <script>
+        function generateUserNames() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var users = JSON.parse(xhr.responseText);
+                    console.log(users); // Log the entire user array to the console
+
+                    var userList = document.getElementById("userList");
+                    userList.innerHTML = ""; // Clear previous content
+
+                    users.forEach(function(user) {
+                        var listItem = document.createElement("li");
+                        listItem.textContent = user.name;
+                        userList.appendChild(listItem);
+                    });
+                }
+            };
+
+            xhr.send();
+        }
+
+        document.getElementById("generateButton").addEventListener("click", generateUserNames);
+    </script>
+</body>
+</html>

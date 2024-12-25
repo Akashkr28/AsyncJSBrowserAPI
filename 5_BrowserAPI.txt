@@ -1,0 +1,178 @@
+Q5. List and briefly explain some common Browser APIs available to JavaScript developers.
+
+Ans:
+### Common Browser APIs for JavaScript Developers
+
+Browser APIs are built-in interfaces provided by the browser that allow developers to interact with various features and functionality of the web platform. Below are some commonly used Browser APIs:
+
+---
+
+#### 1. DOM (Document Object Model) API
+   - What It Does: Allows manipulation of the structure, style, and content of a web page.
+   - Examples:
+     - Select elements: document.querySelector(), document.getElementById().
+     - Modify elements: element.innerHTML, element.style.
+     - Add/Remove elements: document.createElement(), parentNode.appendChild(), parentNode.removeChild().
+
+---
+
+#### 2. Fetch API
+   - What It Does: Provides an easy way to make network requests and handle responses.
+   - Examples:
+     
+     fetch('https://api.example.com/data')
+         .then(response => response.json())
+         .then(data => console.log(data))
+         .catch(error => console.error('Error:', error));
+     
+---
+
+#### 3. Console API
+   - What It Does: Used for debugging by logging messages or objects to the browser's console.
+   - Examples:
+     - console.log(): Logs messages.
+     - console.error(): Logs errors.
+     - console.table(): Displays tabular data.
+
+---
+
+#### 4. Storage API
+   - What It Does: Provides methods for storing and retrieving data in the browser.
+   - Examples:
+     - LocalStorage: Persistent storage (survives browser restarts).
+       
+       localStorage.setItem('key', 'value');
+       console.log(localStorage.getItem('key'));
+       
+     - SessionStorage: Temporary storage (cleared when the tab is closed).
+       
+       sessionStorage.setItem('key', 'value');
+       console.log(sessionStorage.getItem('key'));
+       
+---
+
+#### 5. Geolocation API
+   - What It Does: Provides the geographical location of the user's device.
+   - Examples:
+     
+     navigator.geolocation.getCurrentPosition(position => {
+         console.log('Latitude:', position.coords.latitude);
+         console.log('Longitude:', position.coords.longitude);
+     });
+     
+---
+
+#### 6. Canvas API
+   - What It Does: Enables drawing graphics, animations, and images on a web page using the <canvas> element.
+   - Examples:
+     
+     const canvas = document.getElementById('myCanvas');
+     const ctx = canvas.getContext('2d');
+     ctx.fillStyle = 'blue';
+     ctx.fillRect(10, 10, 100, 100);
+     
+---
+
+#### 7. Web Storage API
+   - What It Does: Offers ways to store data on the client side for session or long-term use.
+   - Examples:
+     - localStorage for persistent storage.
+     - sessionStorage for session-based storage.
+
+---
+
+#### 8. History API
+   - What It Does: Enables manipulation of the browser's session history.
+   - Examples:
+     
+     history.pushState({}, 'Page Title', '/new-url');
+     history.back(); // Go to the previous page.
+     
+---
+
+#### 9. WebSockets API
+   - What It Does: Enables real-time, full-duplex communication between the browser and server.
+   - Examples:
+     
+     const socket = new WebSocket('ws://example.com/socket');
+     socket.onmessage = event => console.log('Message:', event.data);
+     socket.send('Hello Server');
+     
+---
+
+#### 10. Notification API
+   - What It Does: Allows displaying notifications to the user.
+   - Examples:
+     
+     Notification.requestPermission().then(permission => {
+         if (permission === 'granted') {
+             new Notification('Hello!', { body: 'This is a notification.' });
+         }
+     });
+     
+---
+
+#### 11. File API
+   - What It Does: Provides the ability to read and interact with files selected by the user via an <input> element.
+   - Examples:
+     
+     const input = document.querySelector('input[type="file"]');
+     input.addEventListener('change', event => {
+         const file = event.target.files[0];
+         console.log('File name:', file.name);
+     });
+     
+---
+
+#### 12. WebRTC API
+   - What It Does: Enables real-time communication (e.g., video/audio calls) directly between browsers.
+   - Examples:
+     
+     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+         .then(stream => {
+             const video = document.querySelector('video');
+             video.srcObject = stream;
+         })
+         .catch(error => console.error('Error accessing media devices:', error));
+     
+---
+
+#### 13. Clipboard API
+   - What It Does: Allows copying and pasting content to/from the clipboard.
+   - Examples:
+     
+     navigator.clipboard.writeText('Copied text')
+         .then(() => console.log('Text copied to clipboard!'));
+     
+---
+
+#### 14. Drag and Drop API
+   - What It Does: Provides functionality to drag and drop elements on a web page.
+   - Examples:
+
+     const draggable = document.getElementById('drag-item');
+     draggable.addEventListener('dragstart', event => {
+         event.dataTransfer.setData('text/plain', draggable.id);
+     });
+     
+
+---
+
+#### 15. Intersection Observer API
+   - What It Does: Detects when an element enters or leaves the viewport.
+   - Examples:
+     
+     const observer = new IntersectionObserver(entries => {
+         entries.forEach(entry => {
+             if (entry.isIntersecting) {
+                 console.log('Element is in view!');
+             }
+         });
+     });
+
+     observer.observe(document.querySelector('.target-element'));
+     
+
+---
+
+These APIs provide the foundation for creating rich, interactive web applications.

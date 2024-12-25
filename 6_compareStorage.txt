@@ -1,0 +1,85 @@
+Q6.Describe the purpose and usage of the localStorage and sessionStorage APIs in web development. Give suitable examples for each.
+
+Ans:
+### Purpose of localStorage and sessionStorage APIs
+Both localStorage and sessionStorage are part of the Web Storage API and are used to store key-value pairs in a web browser. They are useful for saving data that persists across page reloads or during a single session without needing to send it to the server. These APIs help improve performance and reduce server overhead by managing client-side data.
+
+### Usage and Examples
+
+#### 1. localStorage
+- Purpose: Use localStorage to store data that needs to persist across multiple sessions and tabs, such as user preferences or app settings.
+- Example: Saving and retrieving a theme preference.
+  
+  // Set an item in localStorage
+  localStorage.setItem('theme', 'dark');
+
+  // Retrieve the item
+  const theme = localStorage.getItem('theme');
+  console.log(Selected theme: ${theme}); // Output: Selected theme: dark
+
+  // Remove the item
+  localStorage.removeItem('theme');
+
+  // Clear all items in localStorage
+  localStorage.clear();
+  
+---
+
+#### 2. sessionStorage
+- Purpose: Use sessionStorage to store temporary data that should only last for the duration of a tab session, such as form inputs or data for a single workflow.
+- Example: Saving a temporary form input value.
+  
+  // Set an item in sessionStorage
+  sessionStorage.setItem('draft', 'This is a draft message.');
+
+  // Retrieve the item
+  const draft = sessionStorage.getItem('draft');
+  console.log(Draft content: ${draft}); // Output: Draft content: This is a draft message.
+
+  // Remove the item
+  sessionStorage.removeItem('draft');
+
+  // Clear all items in sessionStorage
+  sessionStorage.clear();
+  
+---
+
+### Practical Use Cases
+
+#### localStorage Use Cases
+1. Remembering User Preferences:
+   - Theme (dark/light mode), language settings, etc.
+   
+   localStorage.setItem('language', 'en');
+   console.log(localStorage.getItem('language')); // Output: en
+   
+
+2. Saving Data for Offline Usage:
+   - Storing a list of items in a to-do app.
+   
+   const tasks = ['Task 1', 'Task 2', 'Task 3'];
+   localStorage.setItem('tasks', JSON.stringify(tasks));
+   console.log(JSON.parse(localStorage.getItem('tasks'))); // Output: ['Task 1', 'Task 2', 'Task 3']
+   
+
+#### sessionStorage Use Cases
+1. Single-Session Workflows:
+   - Temporary cart items in an e-commerce site during checkout.
+   
+   sessionStorage.setItem('cart', JSON.stringify(['Item 1', 'Item 2']));
+   console.log(JSON.parse(sessionStorage.getItem('cart'))); // Output: ['Item 1', 'Item 2']
+   
+2. Temporary Form Data:
+   - Saving unsaved form input while navigating between pages.
+   
+   sessionStorage.setItem('formData', JSON.stringify({ name: 'John', email: 'john@example.com' }));
+   console.log(JSON.parse(sessionStorage.getItem('formData'))); // Output: { name: 'John', email: 'john@example.com' }
+   
+---
+
+### Limitations
+1. Data is stored as strings, so objects must be serialized using JSON.stringify() and parsed with JSON.parse().
+2. Limited storage size (usually 5–10 MB).
+3. Data is not secure; sensitive information should not be stored.
+
+By leveraging these APIs appropriately, developers can create faster and more user-friendly web applications.
